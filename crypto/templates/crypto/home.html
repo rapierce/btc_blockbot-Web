@@ -1,0 +1,61 @@
+{% extends 'crypto/base.html' %}
+
+
+
+{% block content %}
+
+<div class="jumbotron">
+    <h1 class="display-4">BTC BlockBot - Crypto News</h1>
+    <p class="lead">Your Source for Crypto Currency and Blockchain News.</p>
+</div>
+
+<table class="table table-striped table-dark table-bordered table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Symbol</th>
+        <th scope="col">Price</th>
+        <th scope="col">24H High</th>
+        <th scope="col">24H Low</th>
+        <th scope="col">Market Cap</th>
+      </tr>
+    </thead>
+    <tbody>
+{% for key,value in crypto_Price.DISPLAY.items %}
+    
+      <tr>
+        <td>{{ key }}</td>
+        <td>{{ value.USD.PRICE }}</td>
+        <td>{{ value.USD.HIGHDAY }}</td>
+        <td>{{ value.USD.LOWDAY }}</td>
+        <td>{{ value.USD.MKTCAP }}</td>
+      </tr>
+    
+{% endfor %}
+    </tbody>
+</table>
+<br>
+
+
+<div class="container">
+    <div class="row">
+        {% for news in crypto_News.Data %}
+            <div class='col-sm'>
+                <div class="card" style="width: 18rem;">
+                    <img src="{{ news.imageurl }}" class="card-img-top" alt="{{ news.source }}">
+                    <div class="card-body">
+                    <h5 class="card-title">{{ news.title }}</h5>
+                    <p class="card-text">{{ news.body }}</p>
+                    <a href="{{ news.url }}" class="btn btn-secondary">Read More...</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+
+    
+    {{ crypto_News.Data }}
+
+
+{% endblock %}

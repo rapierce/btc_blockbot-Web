@@ -1,0 +1,27 @@
+.navbar-nav .nav-link {
+    color: rgb(212, 212, 212) !important;
+}
+
+.navbar-nav .nav-link:hover {
+    color: rgba(129, 129, 129, 0.5) !important;
+}
+
+body {
+    font-family: 'Caveat', cursive;
+    background-color: rgb(61, 61, 61);
+    color: rgb(194, 194, 194);
+}
+
+
+#blogtitle {
+    font-size: 6rem;
+}
+
+@media (min-width: 992px) {
+    #hometext {
+        font-size: 6rem;
+    }
+    #blogdetailtitle {
+        font-size: 6rem;
+    }
+}

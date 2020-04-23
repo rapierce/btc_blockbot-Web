@@ -1,0 +1,31 @@
+{% extends 'crypto/base.html' %}
+
+{% block content %}
+
+    {% if not_Found %}
+        {{ not_Found }}
+    {% else %}
+        {% if crypto_Quote.Response  %}
+            Hmmm Can't find symbol <strong>{{ quote }}</strong>, please check and try again...
+        {% endif %}
+
+        {% for key,value in crypto_Quote.DISPLAY.items %}
+
+        <div class="jumbotron">
+            <img src="{{ value.USD.IMAGEURL }}"><h1 class="display-4">{{ key }}</h1>
+            <p class="lead"><p>Price info for {{ key }}</p></p>
+            <strong>Symbol - </strong>{{ key }}<br>
+            <strong>Price - </strong>{{ value.USD.PRICE }}<br>
+            <strong>24H High - </strong>{{ value.USD.HIGHDAY }}<br>
+            <strong>24H Low - </strong>{{ value.USD.LOWDAY }}<br>
+            <strong>Market Cap - </strong>{{ value.USD.MKTCAP }}<br>
+            
+        </div>
+            
+                
+                
+        {% endfor %}
+    {% endif %}
+<br><br>
+
+{% endblock %}
