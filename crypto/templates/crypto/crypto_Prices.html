@@ -9,16 +9,16 @@
             Hmmm Can't find symbol <strong>{{ quote }}</strong>, please check and try again...
         {% endif %}
 
-        {% for key,value in crypto_Quote.DISPLAY.items %}
+        {% for coin, value in crypto_Quote.data.items %}
 
         <div class="jumbotron">
-            <img src="{{ value.USD.IMAGEURL }}"><h1 class="display-4">{{ key }}</h1>
-            <p class="lead"><p>Price info for {{ key }}</p></p>
-            <strong>Symbol - </strong>{{ key }}<br>
-            <strong>Price - </strong>{{ value.USD.PRICE }}<br>
-            <strong>24H High - </strong>{{ value.USD.HIGHDAY }}<br>
-            <strong>24H Low - </strong>{{ value.USD.LOWDAY }}<br>
-            <strong>Market Cap - </strong>{{ value.USD.MKTCAP }}<br>
+            <img src="{{ value.logo }}"><h1 class="display-4">{{ key }}</h1>
+            <p class="lead"><p>Information for {{ value.name }}</p></p>
+            <strong>Symbol - </strong>{{ coin }}<br>
+            <strong>Coin - </strong>{{ value.name }}<br>
+            <strong>Website - </strong>{{ value.urls.website }}<br>
+            <strong>White Paper - </strong>{{ value.urls.technical_doc }}<br>
+            <strong>Description - </strong>{{ value.description }}<br>
             
         </div>
             
@@ -27,5 +27,6 @@
         {% endfor %}
     {% endif %}
 <br><br>
+
 
 {% endblock %}

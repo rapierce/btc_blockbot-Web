@@ -1,5 +1,5 @@
 .navbar-nav .nav-link {
-    color: rgb(212, 212, 212) !important;
+    color: rgb(219, 189, 19, 0.993) !important;
 }
 
 .navbar-nav .nav-link:hover {
@@ -7,9 +7,9 @@
 }
 
 body {
-    font-family: 'Caveat', cursive;
-    background-color: rgb(61, 61, 61);
-    color: rgb(194, 194, 194);
+    font-family: 'Exo 2', sans-serif;
+    background-color: rgb(0, 0, 0);
+    color: rgba(196, 169, 20, 0.993);
 }
 
 
