@@ -1,30 +1,36 @@
 {% extends 'crypto/base.html' %}
+{% load humanize %}
 
 {% block content %}
-
     {% if not_Found %}
         {{ not_Found }}
     {% else %}
-        {% if crypto_Quote.Response  %}
-            Hmmm Can't find symbol <strong>{{ quote }}</strong>, please check and try again...
+        {% if crypto_Info.status.error_code == 400  %}
+            Hmmm Can't find symbol <strong>{{ coinLookup }}</strong>, please check and try again...
         {% endif %}
-
-        {% for coin, value in crypto_Quote.data.items %}
-
-        <div class="jumbotron">
-            <img src="{{ value.logo }}"><h1 class="display-4">{{ key }}</h1>
-            <p class="lead"><p>Information for {{ value.name }}</p></p>
-            <strong>Symbol - </strong>{{ coin }}<br>
-            <strong>Coin - </strong>{{ value.name }}<br>
-            <strong>Website - </strong>{{ value.urls.website }}<br>
-            <strong>White Paper - </strong>{{ value.urls.technical_doc }}<br>
-            <strong>Description - </strong>{{ value.description }}<br>
             
-        </div>
-            
-                
-                
-        {% endfor %}
+            {% for coin, value in crypto_Info.data.items %}
+
+                <img src="{{ value.logo }}"><h1 class="display-4">{{ key }}</h1>
+                <p class="lead"><p>Information for {{ value.name }}</p></p>
+                <strong>Symbol - </strong>{{ coin }}<br>
+                <strong>Coin - </strong>{{ value.name }}<br>
+                <strong>Website - </strong><a href={{ value.urls.website }}>{{ value.urls.website }}</a><br>
+                <strong>White Paper - </strong><a href={{ value.urls.technical_doc }}>value.urls.technical_doc</a><br><br>
+                <strong>Description - </strong>{{ value.description }}<br><br>               
+                        
+            {% endfor %}
+
+            {% for cg_Coin in cg_Price_Data %}
+
+                <strong>Price - </strong>{{ cg_Coin.current_price|floatformat:2|intcomma }}<br>
+                <strong>24 Hour High - </strong>{{ cg_Coin.high_24h|floatformat:2|intcomma }}<br>
+                <strong>24 Hour Low - </strong>{{ cg_Coin.low_24h|floatformat:2|intcomma }}<br>
+                <strong>Market Cap - </strong>{{ cg_Coin.market_cap|intword }}<br>
+                <strong>Total Volume - </strong>{{ cg_Coin.total_volume|intword }}<br>               
+                        
+            {% endfor %}
+       
     {% endif %}
 <br><br>
 

@@ -1,1 +1,0 @@
-cmc_token = 'efca78fc-363d-46e6-843b-cfb80fb5857b'

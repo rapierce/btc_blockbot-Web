@@ -7,11 +7,12 @@
 <h1 class="display-4">BTC BlockBot - Crypto News</h1>
 <p class="lead">Your Source for Crypto Currency and Blockchain News.</p>
 
+<!-- {{ cg_Data }} -->
 
-<table class="table table-striped table-dark table-bordered table-hover">
+<table class="table table-dark table-bordered table-hover">
     <thead>
       <tr>
-        <th scope="col">Rank</th>
+        <th scope="col">Ranking</th>
         <th scope="col">Coin</th> 
         <th scope="col">Symbol</th>
         <th scope="col">Price</th>
@@ -21,16 +22,16 @@
       </tr>
     </thead>
     <tbody>
-        {% for coin_Key in cmc_Data.data|slice:"10" %}
+        {% for coin_Key in cg_Data|slice:"10" %}
             
             <tr>
-            <td>{{ coin_Key.cmc_rank }}</td>
+            <td><img src="{{ coin_Key.image }}" width="30" height="30"></td>
             <td>{{ coin_Key.name }}</td>
             <td>{{ coin_Key.symbol }}</td>
-            <td>{{ coin_Key.quote.USD.price|floatformat:2|intcomma }}</td>
-            <td>{{ coin_Key.quote.USD.market_cap|floatformat:2|intcomma }}</td>
-            <td>{{ coin_Key.total_supply|floatformat:0|intcomma }}</td>
-            <td>{{ coin_Key.max_supply|intcomma }}</td>
+            <td>{{ coin_Key.current_price|floatformat:2|intcomma }}</td>
+            <td>{{ coin_Key.market_cap|floatformat:2|intcomma }}</td>
+            <td>{{ coin_Key.circulating_supply|floatformat:0|intcomma }}</td>
+            <td>{{ coin_Key.total_supply|intcomma }}</td>
             </tr>
       
         {% endfor %}
