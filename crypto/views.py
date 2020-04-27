@@ -56,7 +56,6 @@ def crypto_Prices(request):
         if (crypto_Info['status']['error_code']) != 400:
             for x, v in crypto_Info['data'].items():
                 coin_Ids = v['slug']
-                #print(coin_Ids)
         
             cg_Price_Url = 'https://api.coingecko.com/api/v3/coins/markets'
             cg_Price_Parameters = {'vs_currency':'USD', 'ids':coin_Ids, 'limit':'100', 'sparkline':False}

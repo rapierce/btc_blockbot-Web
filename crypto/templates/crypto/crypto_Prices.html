@@ -12,11 +12,11 @@
             {% for coin, value in crypto_Info.data.items %}
 
                 <img src="{{ value.logo }}"><h1 class="display-4">{{ key }}</h1>
-                <p class="lead"><p>Information for {{ value.name }}</p></p>
-                <strong>Symbol - </strong>{{ coin }}<br>
+                <p class="lead"><h2>Information for {{ value.name }}</h2></p>
                 <strong>Coin - </strong>{{ value.name }}<br>
-                <strong>Website - </strong><a href={{ value.urls.website }}>{{ value.urls.website }}</a><br>
-                <strong>White Paper - </strong><a href={{ value.urls.technical_doc }}>value.urls.technical_doc</a><br><br>
+                <strong>Symbol - </strong>{{ coin }}<br>
+                <strong>Website - </strong><a href={{ value.urls.website.0 }}>{{ value.urls.website.0 }}</a><br>
+                <strong>White Paper - </strong><a href={{ value.urls.technical_doc.0 }}>{{ value.urls.technical_doc.0 }}</a><br><br>
                 <strong>Description - </strong>{{ value.description }}<br><br>               
                         
             {% endfor %}

@@ -1,19 +1,35 @@
 .navbar-nav .nav-link {
-    color: rgb(219, 189, 19, 0.993) !important;
+    color: rgba(235, 232, 220, 0.993) !important;
 }
 
 .navbar-nav .nav-link:hover {
-    color: rgba(129, 129, 129, 0.5) !important;
+    color: rgba(138, 144, 192, 0.966) !important;
 }
 
 body {
     font-family: 'Exo 2', sans-serif;
-    background-color: rgb(0, 0, 0);
-    color: rgba(196, 169, 20, 0.993);
+    background-color: rgb(72, 72, 75);
+    color: rgba(235, 232, 220, 0.993);
 }
 
+table,th,td 
+    th
+    {
+        background-color: rgb(43, 43, 46);
+        color: rgba(235, 232, 220, 0.993);
+    }
+    tr
+    {
+        background-color: rgb(72, 72, 75);
+        color: rgba(235, 232, 220, 0.993);
+    }
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+        background-color: rgb(155, 155, 167);
+      }
 
-#blogtitle {
+
+
+/* #blogtitle {
     font-size: 6rem;
 }
 
@@ -24,4 +40,4 @@ body {
     #blogdetailtitle {
         font-size: 6rem;
     }
-}
+} */
