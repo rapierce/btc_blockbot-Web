@@ -24,27 +24,13 @@ def home(request):
     crypto_News_Request = requests.get('https://min-api.cryptocompare.com/data/v2/news/?lang=EN')
     crypto_News = json.loads(crypto_News_Request.content)
 
-    #Get Top Crypto Data from CoinMarketCap
-    # cmc_Url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
-    # cmc_Parameters = {'start':'1', 'limit':'5000', 'convert':'USD'}
-    # cmc_Headers = {'Accepts': 'application/json','X-CMC_PRO_API_KEY': 'efca78fc-363d-46e6-843b-cfb80fb5857b',}
-
-    # session = Session()
-    # session.headers.update(cmc_Headers)
-
-    # try:
-    #     cmc_Response_Request = session.get(cmc_Url, params=cmc_Parameters)
-    #     cmc_Data = json.loads(cmc_Response_Request.content)
-    # except (ConnectionError, Timeout, TooManyRedirects) as e:
-    #     print(e)
-
     return render(request, 'crypto/home.html', {'crypto_News':crypto_News, 'cg_Data':cg_Data})
 
 def crypto_Prices(request):
     
     if request.method == 'POST':
         # Open keys.txt file to retrieve rpc User and Password
-        # with open(r"static/keys/tokens.txt", 'r') as tokens_File:
+
         with open('static/keys/tokens.txt') as tokens_File:
             token = [line.rstrip('\n') for line in tokens_File]
 
