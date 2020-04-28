@@ -29,65 +29,38 @@ def home(request):
 def crypto_Prices(request):
     
     if request.method == 'POST':
-        # Open keys.txt file to retrieve rpc User and Password
-
-        with open('static/keys/tokens.txt') as tokens_File:
-            token = [line.rstrip('\n') for line in tokens_File]
-
-        cmc_API_Token = token[0]
-
 
         coinLookup = request.POST['coinLookup']
-        coinLookup = coinLookup.upper()
-        crypto_Info_Url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/info'
-        crypto_Info_Parameters = {'symbol':coinLookup}
-        crypto_Info_Headers = {'Accepts': 'application/json','X-CMC_PRO_API_KEY': cmc_API_Token}
+        coinLookup = coinLookup.lower()
 
-        session = Session()
-        session.headers.update(crypto_Info_Headers)
+        coinLookup = convert_Id(coinLookup)
+        print(coinLookup)
+        cg_Coin_Url = 'https://api.coingecko.com/api/v3/coins/'
+        # cg_Coin_Parameters = {'id':coinLookup}
+    
+        session2 = Session()
+        #session2.headers.update()
 
         try:
-            crypto_Info_Request = session.get(crypto_Info_Url, params=crypto_Info_Parameters)
-            crypto_Info = json.loads(crypto_Info_Request.content)
+            cg_Coin_Response_Request = session2.get(cg_Coin_Url + coinLookup)
+            cg_Coin_Data = json.loads(cg_Coin_Response_Request.content)
         except (ConnectionError, Timeout, TooManyRedirects) as e:
             print(e)
-
-        # Change symbol to name exp. BTC -> bitcoin
-        if (crypto_Info['status']['error_code']) != 400:
-            for x, v in crypto_Info['data'].items():
-                coin_Ids = v['slug']
-        
-            cg_Price_Url = 'https://api.coingecko.com/api/v3/coins/markets'
-            cg_Price_Parameters = {'vs_currency':'USD', 'ids':coin_Ids, 'limit':'100', 'sparkline':False}
-        
-            session2 = Session()
-            session2.headers.update()
-
-            try:
-                cg_Price_Response_Request = session2.get(cg_Price_Url, params=cg_Price_Parameters)
-                cg_Price_Data = json.loads(cg_Price_Response_Request.content)
-            except (ConnectionError, Timeout, TooManyRedirects) as e:
-                print(e)
-
-            return render(request, 'crypto/crypto_Prices.html', {'coinLookup':coinLookup, 'crypto_Info':crypto_Info, 'cg_Price_Data':cg_Price_Data})
-        else:
-            return render(request, 'crypto/crypto_Prices.html', {'coinLookup':coinLookup, 'crypto_Info':crypto_Info})
-
+        print(cg_Coin_Data['description']['en'])
+        return render(request, 'crypto/crypto_Prices.html', {'coinLookup':coinLookup, 'cg_Coin_Data':cg_Coin_Data})
     else:
         not_Found = "Enter a crypto symbol in the [Lookup Crypto] box"
         return render(request, 'crypto/crypto_Prices.html', {'not_Found':not_Found})
 
-        
+def convert_Id(coinLookup):
+    session = Session()
 
+    cg_Coin_List_Url = 'https://api.coingecko.com/api/v3/coins/list'
+    cg_Coin_List_Request = session.get(cg_Coin_List_Url)
+    cg_Coin_List = json.loads(cg_Coin_List_Request.content)
 
-# def crypto_Prices(request):
-    
-#     if request.method == 'POST':
-#         coinLookup = request.POST['coinLookup']
-#         coinLookup = coinLookup.upper()
-#         crypto_Info_Request = requests.get('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=' + coinLookup + '&tsyms=USD')
-#         crypto_Info = json.loads(crypto_Info_Request.content)
-#         return render(request, 'crypto/crypto_Prices.html', {'coinLookup':coinLookup, 'crypto_Info':crypto_Info})
-#     else:
-#         not_Found = "Enter a crypto symbol in the [Lookup Crypto] box"
-#         return render(request, 'crypto/crypto_Prices.html', {'not_Found':not_Found})
+    for coin_List in cg_Coin_List:
+            if coinLookup == coin_List['symbol']:
+                coinLookup = coin_List['id']
+                print(coinLookup)
+    return(coinLookup)

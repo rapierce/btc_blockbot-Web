@@ -8,28 +8,22 @@
         {% if crypto_Info.status.error_code == 400  %}
             Hmmm Can't find symbol <strong>{{ coinLookup }}</strong>, please check and try again...
         {% endif %}
-            
-            {% for coin, value in crypto_Info.data.items %}
+    
+    <h1 class="display-4"><img src="{{ cg_Coin_Data.image.large }}" width="80" height="80">{{ cg_Coin.name }}</h1>
+    <p class="lead"><h2>{{ cg_Coin_Data.name }}</h2></p><br>
+    <strong>Coin - </strong>{{ cg_Coin_Data.id }}<br>
+    <strong>Symbol - </strong>{{ cg_Coin_Data.symbol }}<br>
+    <strong>Website - </strong><a href={{ cg_Coin.links.homepage.0 }}>{{ cg_Coin_Data.links.homepage.0 }}</a><br>
+    <strong>White Paper - </strong><a href={{ cg_Coin.urls.technical_doc.0 }}>{{ cg_Coin_Data.urls.technical_doc.0 }}</a><br>
+    <strong>Source Code - </strong><a href={{ cg_Coin_Data.links.repos_url.github.0 }}>{{ cg_Coin_Data.links.repos_url.github.0 }}</a><br><br>
+    <strong>Description - </strong>{{ cg_Coin_Data.description.en|safe }}<br><br>               
+    <strong>Price - </strong>{{ cg_Coin_Data.market_data.current_price.usd|floatformat:2|intcomma }}<br>
+    <strong>24 Hour High - </strong>{{ cg_Coin_Data.market_data.high_24h.usd|floatformat:2|intcomma }}<br>
+    <strong>24 Hour Low - </strong>{{ cg_Coin_Data.market_data.low_24h.usd|floatformat:2|intcomma }}<br>
+    <strong>Market Cap - </strong>{{ cg_Coin_Data.market_data.market_cap.usd|intword }}<br>
+    <strong>Total Volume - </strong>{{ cg_Coin_Data.market_data.total_volume.usd|intword }}<br>
+         
 
-                <img src="{{ value.logo }}"><h1 class="display-4">{{ key }}</h1>
-                <p class="lead"><h2>Information for {{ value.name }}</h2></p>
-                <strong>Coin - </strong>{{ value.name }}<br>
-                <strong>Symbol - </strong>{{ coin }}<br>
-                <strong>Website - </strong><a href={{ value.urls.website.0 }}>{{ value.urls.website.0 }}</a><br>
-                <strong>White Paper - </strong><a href={{ value.urls.technical_doc.0 }}>{{ value.urls.technical_doc.0 }}</a><br><br>
-                <strong>Description - </strong>{{ value.description }}<br><br>               
-                        
-            {% endfor %}
-
-            {% for cg_Coin in cg_Price_Data %}
-
-                <strong>Price - </strong>{{ cg_Coin.current_price|floatformat:2|intcomma }}<br>
-                <strong>24 Hour High - </strong>{{ cg_Coin.high_24h|floatformat:2|intcomma }}<br>
-                <strong>24 Hour Low - </strong>{{ cg_Coin.low_24h|floatformat:2|intcomma }}<br>
-                <strong>Market Cap - </strong>{{ cg_Coin.market_cap|intword }}<br>
-                <strong>Total Volume - </strong>{{ cg_Coin.total_volume|intword }}<br>               
-                        
-            {% endfor %}
        
     {% endif %}
 <br><br>
