@@ -12,7 +12,6 @@ def home(request):
     cg_Parameters = {'vs_currency':'USD', 'limit':'100', 'sparkline':False}
     
     session = Session()
-    session.headers.update()
 
     try:
         cg_Response_Request = session.get(cg_Url, params=cg_Parameters)
@@ -25,6 +24,21 @@ def home(request):
     crypto_News = json.loads(crypto_News_Request.content)
 
     return render(request, 'crypto/home.html', {'crypto_News':crypto_News, 'cg_Data':cg_Data})
+
+def all_marketcap(request):
+    #Get Top Crypto Data from CoinGecko
+    cg_Marketcap_Url = 'https://api.coingecko.com/api/v3/coins/markets'
+    cg_Marketcap_Parameters = {'vs_currency':'USD', 'limit':'100', 'sparkline':False}
+    
+    session = Session()
+
+    try:
+        cg_Marketcap_Request = session.get(cg_Marketcap_Url, params=cg_Marketcap_Parameters)
+        cg_Marketcap_Data = json.loads(cg_Marketcap_Request.content)
+    except (ConnectionError, Timeout, TooManyRedirects) as e:
+        print(e)
+
+    return render(request, 'crypto/all_marketcap.html', {'cg_Marketcap_Data':cg_Marketcap_Data})
 
 def crypto_Prices(request):
     

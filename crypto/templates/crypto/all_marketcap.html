@@ -1,0 +1,39 @@
+{% extends 'crypto/base.html' %}
+{% load humanize %}
+
+
+{% block content %}
+
+<p class="lead">Top ten Cryptocurrencies by Market Cap</p>
+
+<table class="table table-sm table-hover">
+    <thead>
+      <tr>
+
+        <th scope="col">Rank</th>
+        <th scope="col"></th>
+        <th scope="col">Coin</th> 
+        <th scope="col"></th>
+        <th scope="col">Price</th>
+        <th scope="col">Market Cap</th>
+        <th scope="col">Current Supply</th>
+        <th scope="col">Max Supply</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for coin_Key in cg_Data %}
+            
+            <tr>
+            <td>{{ coin_Key.market_cap_rank }}</td>
+            <td><img src="{{ coin_Key.image }}" width="30" height="30"></td>
+            <td>{{ coin_Key.name }}</td>
+            <td>{{ coin_Key.symbol }}</td>
+            <td>{{ coin_Key.current_price|floatformat:2|intcomma }}</td>
+            <td>{{ coin_Key.market_cap|floatformat:2|intcomma }}</td>
+            <td>{{ coin_Key.circulating_supply|floatformat:0|intcomma }}</td>
+            <td>{{ coin_Key.total_supply|intcomma }}</td>
+            </tr>
+      
+        {% endfor %}
+
+{% endblock %}
