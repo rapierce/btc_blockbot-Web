@@ -9,7 +9,7 @@ import static
 def home(request):
     #Get Top Crypto Data from CoinGecko
     cg_Url = 'https://api.coingecko.com/api/v3/coins/markets'
-    cg_Parameters = {'vs_currency':'USD', 'limit':'100', 'sparkline':False}
+    cg_Parameters = {'vs_currency':'USD', 'price_change_percentage':'1h,24h,7d,1y', 'sparkline':False}
     
     session = Session()
 
@@ -28,7 +28,7 @@ def home(request):
 def all_marketcap(request):
     #Get Top Crypto Data from CoinGecko
     cg_Marketcap_Url = 'https://api.coingecko.com/api/v3/coins/markets'
-    cg_Marketcap_Parameters = {'vs_currency':'USD', 'limit':'100', 'sparkline':False}
+    cg_Marketcap_Parameters = {'vs_currency':'USD', 'price_change_percentage':'1h,24h,7d,1y', 'sparkline':False}
     
     session = Session()
 
