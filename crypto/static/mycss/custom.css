@@ -2,6 +2,9 @@
     color: rgba(235, 232, 220, 0.993) !important;
 }
 
+.navbar-dark{
+    background-color: rgb(25, 25, 26);
+}
 .navbar-nav .nav-link:hover {
     color: rgba(138, 144, 192, 0.966) !important;
 }
@@ -12,32 +15,20 @@ body {
     color: rgba(235, 232, 220, 0.993);
 }
 
-table,th,td 
+
+table,th,tr
     th
     {
         background-color: rgb(43, 43, 46);
         color: rgba(235, 232, 220, 0.993);
     }
+    
     tr
     {
+        font-family: 'Crimson Text', serif;
         background-color: rgb(72, 72, 75);
         color: rgba(235, 232, 220, 0.993);
     }
     .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
         background-color: rgb(155, 155, 167);
       }
-
-
-
-/* #blogtitle {
-    font-size: 6rem;
-}
-
-@media (min-width: 992px) {
-    #hometext {
-        font-size: 6rem;
-    }
-    #blogdetailtitle {
-        font-size: 6rem;
-    }
-} */

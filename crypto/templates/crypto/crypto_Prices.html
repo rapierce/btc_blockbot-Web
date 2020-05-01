@@ -5,25 +5,25 @@
     {% if not_Found %}
         {{ not_Found }}
     {% else %}
-        {% if crypto_Info.status.error_code == 400  %}
+        {% if coin_Found is False %}
             Hmmm Can't find symbol <strong>{{ coinLookup }}</strong>, please check and try again...
+        {% else %}
+            <h1 class="display-4"><img src="{{ cg_Coin_Data.image.large }}" width="80" height="80">{{ cg_Coin.name }}</h1>
+            <p class="lead"><h2>{{ cg_Coin_Data.name }}</h2></p><br>
+            <strong>Coin - </strong>{{ cg_Coin_Data.id }}<br>
+            <strong>Symbol - </strong>{{ cg_Coin_Data.symbol }}<br>
+            <strong>Website - </strong><a href={{ cg_Coin.links.homepage.0 }}>{{ cg_Coin_Data.links.homepage.0 }}</a><br>
+            <strong>White Paper - </strong><a href={{ cg_Coin.urls.technical_doc.0 }}>{{ cg_Coin_Data.urls.technical_doc.0 }}</a><br>
+            <strong>Source Code - </strong><a href={{ cg_Coin_Data.links.repos_url.github.0 }}>{{ cg_Coin_Data.links.repos_url.github.0 }}</a><br><br>
+            <div id="container"><strong>Description - </strong>{{ cg_Coin_Data.description.en|safe }}</div><br><br>               
+            <strong>Price - </strong>{{ cg_Coin_Data.market_data.current_price.usd|floatformat:2|intcomma }}<br>
+            <strong>24 Hour High - </strong>{{ cg_Coin_Data.market_data.high_24h.usd|floatformat:2|intcomma }}<br>
+            <strong>24 Hour Low - </strong>{{ cg_Coin_Data.market_data.low_24h.usd|floatformat:2|intcomma }}<br>
+            <strong>Market Cap - </strong>{{ cg_Coin_Data.market_data.market_cap.usd|intword }}<br>
+            <strong>Total Volume - </strong>{{ cg_Coin_Data.market_data.total_volume.usd|intword }}<br>
         {% endif %}
-    
-    <h1 class="display-4"><img src="{{ cg_Coin_Data.image.large }}" width="80" height="80">{{ cg_Coin.name }}</h1>
-    <p class="lead"><h2>{{ cg_Coin_Data.name }}</h2></p><br>
-    <strong>Coin - </strong>{{ cg_Coin_Data.id }}<br>
-    <strong>Symbol - </strong>{{ cg_Coin_Data.symbol }}<br>
-    <strong>Website - </strong><a href={{ cg_Coin.links.homepage.0 }}>{{ cg_Coin_Data.links.homepage.0 }}</a><br>
-    <strong>White Paper - </strong><a href={{ cg_Coin.urls.technical_doc.0 }}>{{ cg_Coin_Data.urls.technical_doc.0 }}</a><br>
-    <strong>Source Code - </strong><a href={{ cg_Coin_Data.links.repos_url.github.0 }}>{{ cg_Coin_Data.links.repos_url.github.0 }}</a><br><br>
-    <div id="container"><strong>Description - </strong>{{ cg_Coin_Data.description.en|safe }}</div><br><br>               
-    <strong>Price - </strong>{{ cg_Coin_Data.market_data.current_price.usd|floatformat:2|intcomma }}<br>
-    <strong>24 Hour High - </strong>{{ cg_Coin_Data.market_data.high_24h.usd|floatformat:2|intcomma }}<br>
-    <strong>24 Hour Low - </strong>{{ cg_Coin_Data.market_data.low_24h.usd|floatformat:2|intcomma }}<br>
-    <strong>Market Cap - </strong>{{ cg_Coin_Data.market_data.market_cap.usd|intword }}<br>
-    <strong>Total Volume - </strong>{{ cg_Coin_Data.market_data.total_volume.usd|intword }}<br>
          
-
+    
        
     {% endif %}
 <br><br>

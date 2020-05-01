@@ -4,36 +4,56 @@
 
 {% block content %}
 
-<p class="lead">Top ten Cryptocurrencies by Market Cap</p>
 
-<table class="table table-sm table-hover">
-    <thead>
-      <tr>
+<div class="container-float">
+    <p class="lead">All Cryptocurrencies by Market Cap</p>
 
+    <table class="table table-sm table-hover">
+        <thead>
+          <tr>
+    
         <th scope="col">Rank</th>
         <th scope="col"></th>
         <th scope="col">Coin</th> 
         <th scope="col"></th>
         <th scope="col">Price</th>
+        <th scope="col" style="text-align: center;">1h</th>
+        <th scope="col" style="text-align: center;">24h</th>
+        <th scope="col" style="text-align: center;">7d</th>
+        <th scope="col">Volume</th>
         <th scope="col">Market Cap</th>
-        <th scope="col">Current Supply</th>
-        <th scope="col">Max Supply</th>
       </tr>
     </thead>
     <tbody>
-        {% for coin_Key in cg_Data %}
+        {% for coin_Key in cg_Data|slice:"10" %}
             
             <tr>
             <td>{{ coin_Key.market_cap_rank }}</td>
             <td><img src="{{ coin_Key.image }}" width="30" height="30"></td>
             <td>{{ coin_Key.name }}</td>
-            <td>{{ coin_Key.symbol }}</td>
+            <td>{{ coin_Key.symbol|upper }}</td>
             <td>{{ coin_Key.current_price|floatformat:2|intcomma }}</td>
-            <td>{{ coin_Key.market_cap|floatformat:2|intcomma }}</td>
-            <td>{{ coin_Key.circulating_supply|floatformat:0|intcomma }}</td>
-            <td>{{ coin_Key.total_supply|intcomma }}</td>
+            {% if coin_Key.price_change_percentage_1h_in_currency < 0 %}
+                <td style="color:rgb(255, 0, 0); text-align: center;">{{ coin_Key.price_change_percentage_1h_in_currency|floatformat:2|intcomma }}</td>
+            {% else %}
+                <td style="color:#22d322; text-align: center;">+{{ coin_Key.price_change_percentage_1h_in_currency|floatformat:2|intcomma }}</td>
+            {% endif %}
+            {% if coin_Key.price_change_percentage_24h_in_currency < 0 %}
+                <td style="color:rgb(255, 0, 0); text-align: center;">{{ coin_Key.price_change_percentage_24h_in_currency|floatformat:2|intcomma }}</td>
+            {% else %}
+                <td style="color:#22d322; text-align: center;">+{{ coin_Key.price_change_percentage_24h_in_currency|floatformat:2|intcomma }}</td>
+            {% endif %}
+            {% if coin_Key.price_change_percentage_7d_in_currency < 0 %}
+                <td style="color:rgb(255, 0, 0); text-align: center;">{{ coin_Key.price_change_percentage_7d_in_currency|floatformat:2|intcomma }}</td>
+            {% else %}
+                <td style="color:#22d322; text-align: center;">+{{ coin_Key.price_change_percentage_7d_in_currency|floatformat:2|intcomma }}</td>
+            {% endif %}
+            <td>{{ coin_Key.total_volume|floatformat:2|intcomma }}</td>
+            <td>{{ coin_Key.market_cap|intcomma }}</td>
             </tr>
-      
-        {% endfor %}
-
+          
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
 {% endblock %}
