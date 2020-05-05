@@ -4,9 +4,9 @@
 
 {% block content %}
 
-<p class="lead">Top ten Cryptocurrencies by Market Cap</p>
+<p class="lead">Top Ten Cryptocurrencies by Market Cap</p>
 
-<table class="table table-sm table-hover">
+<table class="col-md table table-sm table-hover">
     <thead>
       <tr>
 
@@ -56,14 +56,15 @@
 <br>
 
 <p Class='lead'>Latest News from the Cryptocurrency World</p>
+<hr>
 <div class="container">
     <div class="row">
         {% for news in crypto_News.Data|slice:"9" %}
-            <div class='col-md'>
+            <div class='col-md border-secondary'>
                 <div class="card.sm-secondary" style="width: 18rem;">
-                    <a href="{{ news.url }}"><img src="{{ news.imageurl }}" class="card-img-top" alt="{{ news.source }}"></a>
+                    <a href="{{ news.url }}" target="_blank"><img src="{{ news.imageurl }}" class="card-img-top" alt="{{ news.source }}"></a>
                     <div class="card-body">
-                    <a class="body-link" href="{{ news.url }}"><h5 class="card-title">{{ news.title }}</h5></a>
+                    <a class="body-link" href="{{ news.url }}" target="_blank"><h5 class="card-title text-light">{{ news.title }}</h5></a>
                     <p class="card-text">{{ news.body|truncatechars:80 }}</p>
                     </div>
                 </div>

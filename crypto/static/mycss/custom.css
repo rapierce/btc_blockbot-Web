@@ -6,7 +6,7 @@
     background-color: rgb(25, 25, 26);
 }
 .navbar-nav .nav-link:hover {
-    color: rgba(138, 144, 192, 0.966) !important;
+    color: rgba(150, 150, 155, 0.966) !important;
 }
 
 body {
@@ -15,6 +15,29 @@ body {
     color: rgba(235, 232, 220, 0.993);
 }
 
+.body-link {
+    color: rgba(235, 232, 220, 0.993) !important;
+}
+
+p {
+    text-align: justify;
+}
+
+a {
+    color: azure;
+    font-weight: bold;
+}
+
+a:hover, h5:hover{
+    background-color: rgb(72, 72, 75);
+    color: rgb(172, 172, 172);
+    text-decoration-color: rgb(172, 172, 172);
+    font-weight: bold;
+}
+
+hr {
+    background-color: rgba(235, 232, 220, 0.993);
+}
 
 table,th,tr
     th

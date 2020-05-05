@@ -1,4 +1,5 @@
 {% extends 'crypto/base.html' %}
+{% load static %}
 {% load humanize %}
 
 {% block content %}
@@ -8,19 +9,45 @@
         {% if coin_Found is False %}
             Hmmm Can't find symbol <strong>{{ coinLookup }}</strong>, please check and try again...
         {% else %}
-            <h1 class="display-4"><img src="{{ cg_Coin_Data.image.large }}" width="80" height="80">{{ cg_Coin.name }}</h1>
-            <p class="lead"><h2>{{ cg_Coin_Data.name }}</h2></p><br>
-            <strong>Coin - </strong>{{ cg_Coin_Data.id }}<br>
-            <strong>Symbol - </strong>{{ cg_Coin_Data.symbol }}<br>
-            <strong>Website - </strong><a href={{ cg_Coin.links.homepage.0 }}>{{ cg_Coin_Data.links.homepage.0 }}</a><br>
-            <strong>White Paper - </strong><a href={{ cg_Coin.urls.technical_doc.0 }}>{{ cg_Coin_Data.urls.technical_doc.0 }}</a><br>
-            <strong>Source Code - </strong><a href={{ cg_Coin_Data.links.repos_url.github.0 }}>{{ cg_Coin_Data.links.repos_url.github.0 }}</a><br><br>
-            <div id="container"><strong>Description - </strong>{{ cg_Coin_Data.description.en|safe }}</div><br><br>               
-            <strong>Price - </strong>{{ cg_Coin_Data.market_data.current_price.usd|floatformat:2|intcomma }}<br>
-            <strong>24 Hour High - </strong>{{ cg_Coin_Data.market_data.high_24h.usd|floatformat:2|intcomma }}<br>
-            <strong>24 Hour Low - </strong>{{ cg_Coin_Data.market_data.low_24h.usd|floatformat:2|intcomma }}<br>
-            <strong>Market Cap - </strong>{{ cg_Coin_Data.market_data.market_cap.usd|intword }}<br>
-            <strong>Total Volume - </strong>{{ cg_Coin_Data.market_data.total_volume.usd|intword }}<br>
+        <section>
+            <div class="container bg-dark">
+            <div class="row">
+                <div class="col-md-9 mb-3 bg-black">
+                    <h1 class="font-weight-bold"><img class="p-2" src="{{ cg_Coin_Data.image.large }}" width="100" height="100">{{ cg_Coin_Data.name }}</h1>
+                </div>
+                <div class="col-md-3 mb-3 p-4 bg-black">
+                    <h1 style="display: inline;">{{ cg_Coin_Data.market_data.current_price.usd|floatformat:2|intcomma }}</h1>
+                    {% if cg_Coin_Data.market_data.price_change_percentage_24h < 0 %}
+                        <span class="align-top text-danger">{{ cg_Coin_Data.market_data.price_change_percentage_24h|floatformat:2|intcomma }}%</span>
+                    {% else %}
+                        <span class="align-top text-success">+{{ cg_Coin_Data.market_data.price_change_percentage_24h|floatformat:2|intcomma }}%</span>
+                    {% endif %}
+                </div>
+            </div>
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <strong>Coin - </strong><h6 style="display: inline;" class="text-capitalize">{{ cg_Coin_Data.id }}</h6><br>
+                        <strong>Symbol - </strong><h6 style="display: inline;">{{ cg_Coin_Data.symbol|upper }}</h6><br><br>
+                        <strong>Website - </strong><a href={{ cg_Coin_Data.links.homepage.0 }}><i class="fas fa-globe"></i></a><br>
+                        <strong>Reddit - </strong><a href={{ cg_Coin_Data.links.subreddit_url }}><img src="{% static 'images/reddit.png' %}" width="20" height="20"></a><br>
+                        <strong>Twitter - </strong><a href={{ cg_Coin_Data.links.repos_url.twitter }}><i class="fab fa-twitter fa-1x mx-1 text-info"></i></a><br>
+                        <strong>Github - </strong><a href={{ cg_Coin_Data.links.repos_url.github.0 }}><i class="fab fa-github fa-1x mx-1 text-info"></i></a><br>
+                        
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <strong>Price - </strong>{{ cg_Coin_Data.market_data.current_price.usd|floatformat:5|intcomma }}<br>
+                        <strong>24 Hour High - </strong>{{ cg_Coin_Data.market_data.high_24h.usd|floatformat:5|intcomma }}<br>
+                        <strong>24 Hour Low - </strong>{{ cg_Coin_Data.market_data.low_24h.usd|floatformat:5|intcomma }}<br>
+                        <strong>Market Cap - </strong>{{ cg_Coin_Data.market_data.market_cap.usd|intword }}<br>
+                        <strong>Trading Volume - </strong>{{ cg_Coin_Data.market_data.total_volume.usd|intword }}<br>
+                    </div>
+                </div>
+            </div>
+        </section>
+            <div class="container mt-3" style="text-align: justify;">
+                <h4>Description</h4>
+                <p>{{ cg_Coin_Data.description.en|safe }}</p>
+            </div><br><br> 
         {% endif %}
          
     
