@@ -1,0 +1,34 @@
+{% extends 'crypto/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <p Class='lead'>Latest News from the Cryptocurrency World</p>
+        </div>
+        <!-- <div class="col-md-6">
+            <a class="body-link" href="{% url 'all_news' %}"><p class="text-right">All News</p></a>
+        </div> -->
+    </div>
+</div>
+<hr class="pl-0 pr-0 mt-0">
+<div class="container">
+    <div class="row">
+        {% for news in all_Crypto_News.Data %}
+            <div class='col-md border-light'>
+                <div class="card bg-secondary mb-4" style="width: 18rem;">
+                    <a href="{{ news.url }}" target="_blank"><img src="{{ news.imageurl }}" class="card-img-top" alt="{{ news.source }}"></a>
+                    <div class="card-body">
+                    <a class="body-link" href="{{ news.url }}" target="_blank"><h5 class="card-title text-light">{{ news.title }}</h5></a>
+                    <p class="card-text">{{ news.body|truncatechars:80 }}</p>
+                    </div>
+                </div>
+            </div><br>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}

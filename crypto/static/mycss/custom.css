@@ -11,7 +11,7 @@
 
 body {
     font-family: 'Exo 2', sans-serif;
-    background-color: rgb(72, 72, 75);
+    background-color: rgb(43, 44, 58);
     color: rgba(235, 232, 220, 0.993);
 }
 
@@ -29,7 +29,6 @@ a {
 }
 
 a:hover, h5:hover{
-    background-color: rgb(72, 72, 75);
     color: rgb(172, 172, 172);
     text-decoration-color: rgb(172, 172, 172);
     font-weight: bold;

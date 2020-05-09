@@ -1,10 +1,20 @@
 {% extends 'crypto/base.html' %}
+{% load static %}
 {% load humanize %}
 
 
 {% block content %}
 
-<p class="lead">Top Ten Cryptocurrencies by Market Cap</p>
+<div class="container">
+<div class="row">
+    <div class="col-md-6">
+        <p style="display: inline;" class="lead mb-1">Top Ten Cryptocurrencies by Market Cap</p>
+    </div>
+    <div class="col-md-6">
+        <a class="body-link" href="{% url 'all_marketcap' %}"><p class="text-right">All Marketcaps</p></a>
+    </div>
+</div>
+</div>
 
 <table class="col-md table table-sm table-hover">
     <thead>
@@ -54,21 +64,69 @@
     </tbody>
 </table>
 <br>
-
-<p Class='lead'>Latest News from the Cryptocurrency World</p>
-<hr>
 <div class="container">
     <div class="row">
-        {% for news in crypto_News.Data|slice:"9" %}
-            <div class='col-md border-secondary'>
-                <div class="card.sm-secondary" style="width: 18rem;">
+        <div class="col-md-6">
+            <p Class='lead'>Bitcoin Latest Blocks</p>
+        </div>
+        <div class="col-md-6">
+             <a class="body-link" href="{% url 'block_list' %}"><p class="text-right">Block Explorer</p></a>
+        </div>
+    </div>
+</div>
+
+    <table class="col-md table table-sm table-hover">
+        <thead>
+            <tr>
+            <th scope="col">Block</th>
+            <th scope="col">Hash</th>
+            <th scope="col">Mined</th>
+            <th scope="col">Transactions</th> 
+            <th scope="col">Total Bitcoin</th>
+            <th scope="col">Block Size</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for value in block_Ex.block_Info|slice:10 %}
+                
+                <tr>
+                <td>{{ value.b_Count }}</td>
+                <td>{{ value.b_Hash }} </td>
+                <td>{{ value.b_Time }} </td>
+                <td style="text-align: center;">{{ value.b_Trans|intcomma }}</td>
+                <td>{{ value.b_Value|floatformat:5|intcomma }}</td>
+                <td>{{ value.b_Size|intcomma }} bytes</td>
+                </tr>
+            
+            {% endfor %}
+        </tbody>
+    </table>
+<br>
+
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <p Class='lead'>Latest News from the Cryptocurrency World</p>
+        </div>
+        <div class="col-md-6">
+            <a class="body-link" href="{% url 'all_news' %}"><p class="text-right">More News</p></a>
+        </div>
+    </div>
+</div>
+<hr class="pl-0 pr-0 mt-0">
+<div class="container">
+    <div class="row">
+        {% for news in crypto_News.Data|slice:"6" %}
+            <div class='col-md border-light'>
+                <div class="card bg-secondary mb-4" style="width: 18rem;">
                     <a href="{{ news.url }}" target="_blank"><img src="{{ news.imageurl }}" class="card-img-top" alt="{{ news.source }}"></a>
                     <div class="card-body">
                     <a class="body-link" href="{{ news.url }}" target="_blank"><h5 class="card-title text-light">{{ news.title }}</h5></a>
                     <p class="card-text">{{ news.body|truncatechars:80 }}</p>
                     </div>
                 </div>
-            </div><br><br>
+            </div><br>
         {% endfor %}
     </div>
 </div>

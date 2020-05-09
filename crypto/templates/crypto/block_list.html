@@ -1,0 +1,47 @@
+{% extends 'crypto/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <p Class='lead'>Bitcoin Latest Blocks</p>
+        </div>
+        <!-- <div class="col-md-6">
+             <a class="body-link" href="{% url 'block_explorer' %}"><p class="text-right">Block Explorer</p></a>
+        </div> -->
+    </div>
+</div>
+
+    <table class="col-md table table-sm table-hover">
+        <thead>
+            <tr>
+            <th scope="col">Block</th>
+            <th scope="col">Hash</th>
+            <th scope="col">Mined</th>
+            <th scope="col" style="text-align: center;">Transactions</th> 
+            <th scope="col">Total Bitcoin</th>
+            <th scope="col">Block Size</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for value in block_Dic.block_Info %}
+                
+                <tr>
+                <td>{{ value.b_Count }}</td>
+                <td>{{ value.b_Hash }} </td>
+                <td>{{ value.b_Time }} </td>
+                <td style="text-align: center;">{{ value.b_Trans|intcomma }}</td>
+                <td>{{ value.b_Value|floatformat:5|intcomma }}</td>
+                <td>{{ value.b_Size }}</td>
+                </tr>
+            
+            {% endfor %}
+        </tbody>
+    </table>
+<br>
+
+
+{% endblock %}

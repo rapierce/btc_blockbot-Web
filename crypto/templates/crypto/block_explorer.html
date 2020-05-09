@@ -1,0 +1,78 @@
+{% extends 'crypto/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+    <div class="container-float">
+        <p class="lead">All Cryptocurrencies by Market Cap</p>
+
+    <table class="table table-sm table-hover">
+        <thead>
+        <tr>
+
+        </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <th scope="row">Hash</th>
+                <td>{{ block_Hash.hash }} </td>
+            </tr>
+            <tr>
+                <th scope="row">Confirmations</th>
+                <td>{{ block_Hash.confirmations }} </td>
+            </tr>
+            <tr>
+                <th scope="row">Mined</th>
+                <td>{{ block_Hash.time }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Num of Transactions</th>
+                <td>{{ block_Hash.nTx }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Difficulty</th>
+                <td>{{ block_Hash.difficulty }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Merkle Root</th>
+                <td>{{ block_Hash.merkleroot }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Version</th>
+                <td>{{ block_Hash.version }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Bits</th>
+                <td>{{ block_Hash.bits }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Weight</th>
+                <td>{{ block_Hash.weight }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Size</th>
+                <td>{{ block_Hash.size }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Nonce</th>
+                <td>{{ block_Hash.nonce }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Transaction Amount</th>
+                <td>{{ block_Value }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Previous Block Hash</th>
+                <td>{{ block_Hash.previousblockhash }}</td>
+            </tr>
+            <tr>
+                <th scope="row">Next Block Hash</th>
+                <td>{{ block_Hash.nextblockhash }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

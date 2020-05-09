@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
-import json
+import simplejson as json
 import requests
 import static
+from bitcoinrpc.authproxy import AuthServiceProxy, JSONRPCException
 
 # Create your views here.
 def home(request):
@@ -19,11 +20,13 @@ def home(request):
     except (ConnectionError, Timeout, TooManyRedirects) as e:
         print(e)
 
+    block_Ex = block_list(True)
+    
     # #Get Crypto News
     crypto_News_Request = requests.get('https://min-api.cryptocompare.com/data/v2/news/?lang=EN')
     crypto_News = json.loads(crypto_News_Request.content)
 
-    return render(request, 'crypto/home.html', {'crypto_News':crypto_News, 'cg_Data':cg_Data})
+    return render(request, 'crypto/home.html', {'crypto_News':crypto_News, 'block_Ex':block_Ex, 'cg_Data':cg_Data})
 
 def all_marketcap(request):
     #Get Top Crypto Data from CoinGecko
@@ -39,6 +42,14 @@ def all_marketcap(request):
         print(e)
 
     return render(request, 'crypto/all_marketcap.html', {'cg_Marketcap_Data':cg_Marketcap_Data})
+
+def all_news(request):
+
+    # #Get Crypto News
+    all_Crypto_News_Requests = requests.get('https://min-api.cryptocompare.com/data/v2/news/?lang=EN')
+    all_Crypto_News = json.loads(all_Crypto_News_Requests.content)
+
+    return render(request, 'crypto/all_news.html', {'all_Crypto_News':all_Crypto_News})
 
 def crypto_Prices(request):
     
@@ -83,3 +94,62 @@ def convert_Id(coinLookup):
             break
 
     return(coinLookup, coin_Found)
+
+def block_list(request):
+    with open('/home/pierce/environments/block_api_env/block_api/keys/blockapi.txt') as block_Api:
+        block_Dic = json.load(block_Api)
+
+    block_Dic['block_Info'].reverse()
+
+    if request is True:
+        request = False
+        return block_Dic
+    else:
+        return render(request, 'crypto/block_list.html', {'block_Dic':block_Dic})
+
+def block_explorer(request):
+    with open(r'static/keys/tokens.txt', 'r') as keys_File:
+        keys = [line.rstrip('\n') for line in keys_File]
+
+    # Get BlockBot Login Info
+    rpc_user = keys[1]
+    rpc_password = keys[2]
+    block_Value = 0
+
+    # rpc_user and rpc_password are set in the bitcoin.conf file
+    rpc_connection = AuthServiceProxy("http://%s:%s@10.6.69.15:8332"%(rpc_user, rpc_password))
+
+    # Pulling information from the Blockchain
+
+    block_Num = rpc_connection.getblockcount()
+       
+    get_Block_Hash = rpc_connection.getblockhash(block_Num)
+    block_Hash = rpc_connection.getblock(get_Block_Hash)
+    transactions = block_Hash['tx']
+    block_Value = 0
+
+    for txid in transactions:
+        tx_Value = 0
+        raw_Tx = rpc_connection.getrawtransaction(txid)
+        decoded_Tx = rpc_connection.decoderawtransaction(raw_Tx)
+        segwit_Test = raw_Tx[8:10]
+        # If segwit transaction it adds the appropriate flag (True) to the transaction
+        #   ensuring it will be processed as a segwit transaction
+        # Adds the transaction out values to the total block value
+        if segwit_Test != '00':
+            for output in decoded_Tx['vout']:
+                tx_Value = tx_Value + output['value']
+            block_Value = block_Value + tx_Value
+        else:
+            flag = True
+            segwit_Tx = rpc_connection.decoderawtransaction(raw_Tx, flag)
+            
+            for output in segwit_Tx['vout']:
+                tx_Value = tx_Value + output['value']
+            block_Value = block_Value + tx_Value
+
+    
+    return render(request, 'crypto/block_explorer.html', {'block_Num':block_Num, 'block_Hash':block_Hash, 'block_Value':block_Value})
+
+
+

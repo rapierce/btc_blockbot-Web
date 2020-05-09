@@ -19,7 +19,7 @@
     <title>CoinBlockbot</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav style="background-color: #020d24;" class="navbar navbar-expand-lg">
         <img src="{% static 'images/BlockBotTransparent.png' %}" width="50" height="50" class="d-inline-block align-top mr-2">
         <a class="navbar-brand" href="{% url 'home' %}">CoinBlockbot</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,13 +29,19 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-              <a class="nav-link" href="{% url 'all_marketcap' %}">All Marketcaps</a>
+              <a class="nav-link" href="{% url 'all_marketcap' %}">Marketcaps</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'block_list' %}">Block Explorer</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'all_news' %}">News</a>
             </li>
             
           </ul>
           <form class="form-inline my-2 my-lg-0" method="POST" action="{% url 'crypto_Prices' %}">
               {% csrf_token %}
-            <input class="form-control mr-sm-2" type="search" placeholder="Lookup Crypto" aria-label="Search" name="coinLookup">
+            <input class="form-control mr-sm-2" type="search" placeholder="BTC, ETH, LTC, etc." aria-label="Search" name="coinLookup">
             <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Lookup</button>
           </form>
         </div>
@@ -46,6 +52,29 @@
    
         {% endblock %}
     </div>
+    <!-- Footer -->
+    <footer class="bg-primary fixed bottom">
+      <div class="container-fluid" style="background-color: #000000;">
+        <div class="row">
+          <div class="col text-center">
+            <h3 class="text-white font-weight-light class-text-capitalize p-3">CoinBlockbot - Cryptocurrency Information</h3>
+            <h6 class="text-light font-weight-light font-italic mb-3">The CoinBlockbot page is for informational purposes</h6>
+            <div class="py-2">
+              <a href="https://twitter.com/btc_blockbot">Check out the BTC_Blockbot on Twitter<i class="fab fa-twitter fa-2x text-info mx-3"></i></a>
+              <a href="https://github.com/rapierce/btc_blockbot-Web">CoinBlockbot is an open source project Github<i class="fab fa-github fa-2x text-danger mx-3"></i></a>
+            </div><br>
+            <div>
+              <a href="https://coinblockbot.com">Block Info provided by CoinBlockbot Nodes  <img src="{% static 'images/BlockBotTransparent.png' %}" width="20" height="20"></a>
+              <a href="https://bitcoin.org"> Powered by the Bitcoin Network  <img src="{% static 'images/bitcoinlogo.png' %}" width="20" height="20"></a><br>
+              <a href="https://coingecko.com">Market Data provided by CoinGecko  <img src="{% static 'images/coingecko.png' %}" width="70" height="20"></a>
+            </div>
+            <br>
+            <p class="text-light text-center">&copy;Copyright 2020 - Made and Maintained by CoinBlockbot</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
