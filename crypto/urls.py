@@ -11,4 +11,5 @@ urlpatterns = [
     path('block_list/', views.block_list, name="block_list"),
     path('all_news/', views.all_news, name="all_news"),
     path('block_explorer/', views.block_explorer, name="block_explorer"),
+    path('block_trans/', views.block_trans, name="block_trans"),
 ]

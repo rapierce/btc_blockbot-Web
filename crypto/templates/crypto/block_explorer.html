@@ -5,15 +5,9 @@
 {% block content %}
 
     <div class="container-float">
-        <p class="lead">All Cryptocurrencies by Market Cap</p>
+        <p class="lead"><img src="{% static 'images/bitcoinlogo.png' %}" width="50" height="50" class="d-inline-block align-center mr-2">Block {{ block_Num }}</p>
 
     <table class="table table-sm table-hover">
-        <thead>
-        <tr>
-
-        </tr>
-        </thead>
-
         <tbody>
             <tr>
                 <th scope="row">Hash</th>
@@ -25,10 +19,10 @@
             </tr>
             <tr>
                 <th scope="row">Mined</th>
-                <td>{{ block_Hash.time }}</td>
+                <td>{{ time_Convert }}</td>
             </tr>
             <tr>
-                <th scope="row">Num of Transactions</th>
+                <th scope="row">Transactions</th>
                 <td>{{ block_Hash.nTx }}</td>
             </tr>
             <tr>
@@ -65,14 +59,65 @@
             </tr>
             <tr>
                 <th scope="row">Previous Block Hash</th>
-                <td>{{ block_Hash.previousblockhash }}</td>
+                <td><a href="{% url 'block_explorer' %}?get_Block={{ block_Hash.previousblockhash }}">{{ block_Hash.previousblockhash }}</a></td>
             </tr>
             <tr>
                 <th scope="row">Next Block Hash</th>
-                <td>{{ block_Hash.nextblockhash }}</td>
+                <td><a href="{% url 'block_explorer' %}?get_Block={{ block_Hash.nextblockhash }}">{{ block_Hash.nextblockhash }}</a></td>
             </tr>
         </tbody>
     </table>
-</div>
+    </div>
+
+    <div class="container-float">
+        <p class="lead"><img src="{% static 'images/transactions.png' %}" width="40" height="40" class="d-inline-block align-center mr-2">Transactions for Block {{ block_Num }}</p>
+        {% for trans in trans_Dict.key|slice:10 %}
+         <table class="table table-sm table-hover">
+            <tbody>
+                <tr>
+                    <th scope="row">Transaction ID</th>
+                    <td>{{ trans.txid }} </td>
+                </tr>
+                <tr>
+                    <th scope="row">Hash</th>
+                    <td>{{ trans.hash }} </td>
+                </tr>
+                {% for value_In in trans.vin %}
+                    {% if value_In.coinbase  %}
+                        <tr>
+                            <th scope="row">Coinbase Transaction</th>
+                            <td>{{ coinbase }}</td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <th scope="row">Transaction In</th>
+                            <td>{{ value_In.txid }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                    <tr>
+                    <th scope="row">Value Out</th>
+                {% for value_Out in trans.vout %}
+                        <th></th><td>{{ value_Out.value }}</td>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <th scope="row">Address</th>
+                    {% with i = 0 %} {% endwith %}
+                        {% for transx in address_Dict.trx  %}
+                        
+                            {% for transact, addr in transx.items %}
+                                {% if transact == trans.txid %}   
+                                    {{ addr.i }}
+                                {% endif %}
+                                {% if i.append(i.pop() +1) %} {% endif %}
+                            {% endfor %}
+                        
+                    {% endfor %}
+
+        {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
 {% endblock %}

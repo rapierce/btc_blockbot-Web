@@ -38,8 +38,8 @@
             <tr>
             <td>{{ coin_Key.market_cap_rank }}</td>
             <td><img src="{{ coin_Key.image }}" width="30" height="30"></td>
-            <td>{{ coin_Key.name }}</td>
-            <td>{{ coin_Key.symbol|upper }}</td>
+            <td><a href="{% url 'crypto_Prices' %}?coinLookup={{ coin_Key.symbol }}">{{ coin_Key.name }}</a></td>
+            <td><a href="{% url 'crypto_Prices' %}?coinLookup={{ coin_Key.symbol }}">{{ coin_Key.symbol|upper }}</a></td>
             <td>{{ coin_Key.current_price|floatformat:2|intcomma }}</td>
             {% if coin_Key.price_change_percentage_1h_in_currency < 0 %}
                 <td style="color:rgb(255, 0, 0); text-align: center;">{{ coin_Key.price_change_percentage_1h_in_currency|floatformat:2|intcomma }}%</td>
@@ -80,7 +80,8 @@
             <tr>
             <th scope="col">Block</th>
             <th scope="col">Hash</th>
-            <th scope="col">Mined</th>
+            <!-- <th scope="col">Confirmations</th> -->
+            <!-- <th scope="col">Mined</th> -->
             <th scope="col">Transactions</th> 
             <th scope="col">Total Bitcoin</th>
             <th scope="col">Block Size</th>
@@ -90,9 +91,10 @@
             {% for value in block_Ex.block_Info|slice:10 %}
                 
                 <tr>
-                <td>{{ value.b_Count }}</td>
-                <td>{{ value.b_Hash }} </td>
-                <td>{{ value.b_Time }} </td>
+                <td><a href="{% url 'block_explorer' %}?get_Block={{ value.b_Hash }}">{{ value.b_Count }}</a></td>
+                <td><a href="{% url 'block_explorer' %}?get_Block={{ value.b_Hash }}">{{ value.b_Hash }}</a></td>
+                <!-- <td>{{ value.b_Confirmations }}</td> -->
+                <!-- <td>{{ time_Convert }} </td> -->
                 <td style="text-align: center;">{{ value.b_Trans|intcomma }}</td>
                 <td>{{ value.b_Value|floatformat:5|intcomma }}</td>
                 <td>{{ value.b_Size|intcomma }} bytes</td>

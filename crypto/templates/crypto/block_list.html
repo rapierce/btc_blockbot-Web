@@ -20,19 +20,21 @@
             <tr>
             <th scope="col">Block</th>
             <th scope="col">Hash</th>
-            <th scope="col">Mined</th>
+            <!-- <th scope="col">Mined</th>
+            <th scope="col">Confirmations</th> -->
             <th scope="col" style="text-align: center;">Transactions</th> 
             <th scope="col">Total Bitcoin</th>
             <th scope="col">Block Size</th>
             </tr>
         </thead>
         <tbody>
-            {% for value in block_Dic.block_Info %}
+            {% for value in block_Dic.block_Info|slice:150 %}
                 
                 <tr>
-                <td>{{ value.b_Count }}</td>
-                <td>{{ value.b_Hash }} </td>
-                <td>{{ value.b_Time }} </td>
+                <td><a href="{% url 'block_explorer' %}?get_Block={{ value.b_Hash }}">{{ value.b_Count }}</a></td>
+                <td><a href="{% url 'block_explorer' %}?get_Block={{ value.b_Hash }}">{{ value.b_Hash }}</a></td>
+                <!-- <td>{{ value.b_Confirmations }} </td>
+                <td>{{ time_Convert }} </td> -->
                 <td style="text-align: center;">{{ value.b_Trans|intcomma }}</td>
                 <td>{{ value.b_Value|floatformat:5|intcomma }}</td>
                 <td>{{ value.b_Size }}</td>

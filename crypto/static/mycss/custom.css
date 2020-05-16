@@ -12,7 +12,7 @@
 body {
     font-family: 'Exo 2', sans-serif;
     background-color: rgb(43, 44, 58);
-    color: rgba(235, 232, 220, 0.993);
+    color: rgba(172, 170, 163, 0.993);
 }
 
 .body-link {
@@ -24,12 +24,12 @@ p {
 }
 
 a {
-    color: azure;
+    color: rgb(231, 231, 233);
     font-weight: bold;
 }
 
 a:hover, h5:hover{
-    color: rgb(172, 172, 172);
+    color: rgb(38, 67, 185);
     text-decoration-color: rgb(172, 172, 172);
     font-weight: bold;
 }
@@ -51,6 +51,11 @@ table,th,tr
         background-color: rgb(72, 72, 75);
         color: rgba(235, 232, 220, 0.993);
     }
-    .table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-        background-color: rgb(155, 155, 167);
+    .table-hover tbody tr:hover td, .table-hover tbody tr:hover a {
+        background-color: rgb(170, 170, 180);
+        color: rgb(72, 72, 75);
+      }
+      .table-hover tbody tr:hover a {
+        background-color: rgb(170, 170, 180);
+        color: rgb(38, 67, 185);
       }

@@ -30,8 +30,8 @@
             <tr>
             <td>{{ coin_Key.market_cap_rank }}</td>
             <td><img src="{{ coin_Key.image }}" width="30" height="30"></td>
-            <td>{{ coin_Key.name }}</td>
-            <td>{{ coin_Key.symbol|upper }}</td>
+            <td><a href="{% url 'crypto_Prices' %}?coinLookup={{ coin_Key.symbol }}">{{ coin_Key.name }}</a></td>
+            <td><a href="{% url 'crypto_Prices' %}?coinLookup={{ coin_Key.symbol }}">{{ coin_Key.symbol|upper }}</a></td>
             <td>{{ coin_Key.current_price|floatformat:2|intcomma }}</td>
             {% if coin_Key.price_change_percentage_1h_in_currency < 0 %}
                 <td style="color:rgb(255, 0, 0); text-align: center;">{{ coin_Key.price_change_percentage_1h_in_currency|floatformat:2|intcomma }}</td>
